@@ -21,19 +21,34 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-    @IBAction func punchButtonPressed(_ sender: UIButton) {
-        let originalImageFrame = imageView.frame
-        let imageWidthShrink : CGFloat = 20
-        let imageHeightShrink : CGFloat = 20
-        let smallerImageFrame = CGRect(
-            x: imageView.frame.origin.x + imageWidthShrink,
-            y: imageView.frame.origin.y + imageHeightShrink,
-            width: imageView.frame.width - (imageWidthShrink * 2),
-            height: imageView.frame.height - (imageHeightShrink * 2)
+    func showAlert(title: String, message: String){
+        let alertController = UIAlertController(title: "Alert Title Goes Here", message: "I think you're awesome!", preferredStyle: .alert
         )
-        imageView.frame = smallerImageFrame
-        playSound(name: "punchSound")
-        UIView.animate(withDuration: 0.25, delay: 0.0, usingSpringWithDamping: 0.2, initialSpringVelocity: 10.0, options: [], animations: {self.imageView.frame = originalImageFrame})
+        let alertAction = UIAlertAction(title: "OK", style: .default
+            , handler: nil)
+        alertController.addAction(alertAction)
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    @IBAction func photoOrCameraPressed(_ sender: UIButton) {
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let photoLibraryAction = UIAlertAction(title: "Photo Library", style: .default) { (_) in
+            print("You clicked Photo Library")
+            //add code to open
+        }
+        let cameraAction = UIAlertAction(title: "Camera", style: .default) { (_) in
+            print("You clicked Camera")
+            //open camera
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        
+        alertController.addAction(photoLibraryAction)
+        alertController.addAction(cameraAction)
+        alertController.addAction(cancelAction)
+        
+        present(alertController, animated: true, completion: nil)
+
+        
     }
     
     
