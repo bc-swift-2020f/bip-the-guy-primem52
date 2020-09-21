@@ -15,14 +15,15 @@ class ViewController: UIViewController {
     @IBOutlet weak var imageView: UIImageView!
     
     var audioPlayer: AVAudioPlayer!
+    var imagePickerController = UIImagePickerController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        imagePickerController.delegate = self
     }
     
     func showAlert(title: String, message: String){
-        let alertController = UIAlertController(title: "Alert Title Goes Here", message: "I think you're awesome!", preferredStyle: .alert
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert
         )
         let alertAction = UIAlertAction(title: "OK", style: .default
             , handler: nil)
@@ -33,12 +34,10 @@ class ViewController: UIViewController {
     @IBAction func photoOrCameraPressed(_ sender: UIButton) {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let photoLibraryAction = UIAlertAction(title: "Photo Library", style: .default) { (_) in
-            print("You clicked Photo Library")
-            //add code to open
+            self.accessPhotoLibrary()
         }
         let cameraAction = UIAlertAction(title: "Camera", style: .default) { (_) in
-            print("You clicked Camera")
-            //open camera
+            self.acccessCamera()
         }
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         
@@ -53,19 +52,19 @@ class ViewController: UIViewController {
     
     
     func playSound(name: String){
-           if let sound = NSDataAsset(name : name){
-               do{
-                   try audioPlayer = AVAudioPlayer(data: sound.data)
-                   audioPlayer.play()
-               }
-               catch{
-                   print("ERROR: \(error.localizedDescription). Could not initialize AVAudioPlayer Object")
-               }
+       if let sound = NSDataAsset(name : name){
+           do {
+               try audioPlayer = AVAudioPlayer(data: sound.data)
+               audioPlayer.play()
            }
-           else{
-               print("Could not read data from file \(name)")
+           catch {
+               print("ERROR: \(error.localizedDescription). Could not initialize AVAudioPlayer Object")
            }
        }
+       else {
+           print("Could not read data from file \(name)")
+       }
+    }
        
     @IBAction func imageTapped(_ sender: UITapGestureRecognizer) {
         let originalImageFrame = imageView.frame
@@ -83,6 +82,40 @@ class ViewController: UIViewController {
     }
         
 }
+extension ViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate{
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let editedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
+            imageView.image = editedImage
+        }
+        else if let originalImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+        imageView.image = originalImage
+        }
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func accessPhotoLibrary() {
+        imagePickerController.sourceType = .photoLibrary
+        present(imagePickerController, animated: true, completion: nil)
+        
+        
+    }
+    
+    func acccessCamera() {
+        if UIImagePickerController.isSourceTypeAvailable(.camera){
+            imagePickerController.sourceType = .camera
+            present(imagePickerController, animated: true, completion: nil)
+        }
+        else{
+            showAlert(title: "Camera not Available", message: "There is no camera on this device.")
+        }
+    }
+}
+
     
 
 
