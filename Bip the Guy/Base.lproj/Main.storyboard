@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -9,16 +10,57 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Bip_the_Guy" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" xcode11CocoaTouchSystemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="duo-Ca-lwh">
+                                <rect key="frame" x="157" y="844" width="100" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="14f-z3-H9K"/>
+                                    <constraint firstAttribute="height" constant="30" id="ffA-Hn-NKa"/>
+                                </constraints>
+                                <state key="normal" title="Punch"/>
+                                <connections>
+                                    <action selector="punchButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fKR-Oc-gim"/>
+                                </connections>
+                            </button>
+                            <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="clown" translatesAutoresizingMaskIntoConstraints="NO" id="cO7-vu-qaE">
+                                <rect key="frame" x="0.0" y="56" width="414" height="776"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="BpY-AH-oef" appends="YES" id="6Du-RI-oSX"/>
+                                </connections>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="duo-Ca-lwh" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" constant="12" id="7C1-tF-0EO"/>
+                            <constraint firstItem="duo-Ca-lwh" firstAttribute="top" secondItem="cO7-vu-qaE" secondAttribute="bottom" constant="12" id="Jx8-hI-wVB"/>
+                            <constraint firstItem="cO7-vu-qaE" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="12" id="P2n-rk-Lty"/>
+                            <constraint firstItem="duo-Ca-lwh" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="WSp-tb-W3l"/>
+                            <constraint firstItem="cO7-vu-qaE" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="cKh-p8-aG1"/>
+                            <constraint firstItem="cO7-vu-qaE" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="uvC-hq-zri"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <connections>
+                        <outlet property="Punch" destination="duo-Ca-lwh" id="Pk0-a9-bF0"/>
+                        <outlet property="imageView" destination="cO7-vu-qaE" id="8g7-EF-rsa"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="BpY-AH-oef">
+                    <connections>
+                        <action selector="imageTapped:" destination="BYZ-38-t0r" id="s1l-9m-ziC"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
+            <point key="canvasLocation" x="137.68115942028987" y="126.5625"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="clown" width="1786" height="1779"/>
+    </resources>
 </document>
